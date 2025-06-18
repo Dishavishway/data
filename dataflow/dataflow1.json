@@ -1,0 +1,66 @@
+{
+	"name": "dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "mall_output",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "toyota_output",
+						"type": "DatasetReference"
+					},
+					"name": "malltransform",
+					"description": "Export data to mall_output to malltransform",
+					"rejectedDataLinkedService": {
+						"referenceName": "dataLake",
+						"type": "LinkedServiceReference"
+					}
+				}
+			],
+			"transformations": [
+				{
+					"name": "split1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          CustomerID as short,",
+				"          Genre as string,",
+				"          Age as short,",
+				"          {Annual_Income_(k$)} as short,",
+				"          Spending_Score as short",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source1",
+				"source1 split(Age>=30,",
+				"     disjoint: false) ~> split1@(split1, split2)",
+				"split1@split1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          CustomerID as string,",
+				"          Genre as string,",
+				"          Age as string,",
+				"          {Annual_Income_(k$)} as string,",
+				"          Spending_Score as string",
+				"     ),",
+				"     truncate: true,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     saveOrder: 1) ~> malltransform"
+			]
+		}
+	}
+}
