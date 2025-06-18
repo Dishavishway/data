@@ -1,0 +1,9 @@
+{
+	"name": "pipeline-copies124",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "5ce94da0-b982-44d7-b284-cf6a011f04ee",
+		"tenantId": "3c384b5b-7961-47fd-8f4c-f11f12a03d15"
+	}
+}
