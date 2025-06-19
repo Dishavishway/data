@@ -1,9 +1,0 @@
-{
-	"name": "pipelines124",
-	"location": "eastus",
-	"identity": {
-		"type": "SystemAssigned",
-		"principalId": "fc1e24fd-fa63-4430-ab9a-0f25ca3c462a",
-		"tenantId": "3c384b5b-7961-47fd-8f4c-f11f12a03d15"
-	}
-}
